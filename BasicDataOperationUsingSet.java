@@ -3,8 +3,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Short;
-import java.time.format.shortValueFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -53,107 +51,109 @@ import java.util.Set;
  */
 public class BasicDataOperationUsingSet {
     static final String PATH_TO_DATA_FILE = "list/Short.data";
-
-    Short shortValueValueToSearch;
-    Short[] shortValueArray;
-    Set<Short> shortValueSet = new HashSet<>();
-
-    public static void main(String[] args) {  
-        BasicDataOperationUsingSet basicDataOperationUsingSet = new BasicDataOperationUsingSet(args);
-        basicDataOperationUsingSet.doDataOperation();
-    }
-
-    /**
-     * Конструктор, який iнiцiалiзує об'єкт з значенням для пошуку.
-     * 
-     * @param args Аргументи командного рядка, де перший аргумент - значення для пошуку.
-     */
-    BasicDataOperationUsingSet(String[] args) {
-        if (args.length == 0) {
-            throw new RuntimeException("Вiдсутнє значення для пошуку");
+    
+        private static final Short[] ShortArray = null;
+    
+        Short shortValueValueToSearch;
+        Short[] shortValueArray;
+        Set<Short> shortValueSet = new HashSet<>();
+    
+        public static void main(String[] args) {  
+            BasicDataOperationUsingSet basicDataOperationUsingSet = new BasicDataOperationUsingSet(args);
+            basicDataOperationUsingSet.doDataOperation();
         }
-
-        String valueToSearch = args[0];
-        this.shortValueValueToSearch = Short.parse(valueToSearch);
-
-        shortValueArray = Utils.readArrayFromFile(PATH_TO_DATA_FILE);
-        shortValueSet = new HashSet<>(Arrays.asList(shortValueArray));
-    }
-
-    /**
-     * Виконує основнi операцiї з даними.
-     * 
-     * Метод зчитує масив та множину об'єктiв Short з файлу, сортує їх та виконує пошук значення.
-     */
-    private void doDataOperation() {
-        // операцiї з масивом дати та часу
-        searchArray();
-        findMinAndMaxInArray();
-
-        sortArray();
-
-        searchArray();
-        findMinAndMaxInArray();
-
-        // операцiї з HashSet дати та часу
-        searchSet();
-        findMinAndMaxInSet();
-        compareArrayAndSet();
-
-        // записати вiдсортований масив в окремий файл
-        Utils.writeArrayToFile(shortValueArray, PATH_TO_DATA_FILE + ".sorted");
-    }
-
-    /**
-     * Сортує масив об'єктiв Short та виводить початковий i вiдсортований масиви.
-     * Вимiрює та виводить час, витрачений на сортування масиву в наносекундах.
-     */
-    private void sortArray() {
-        long startTime = System.nanoTime();
-
-        Arrays.sort(shortValueArray);
-
-        Utils.printOperationDuration(startTime, "сортування масиву дати i часу");
-    }
-
-    /**
-     * Метод для пошуку значення в масивi дати i часу.
-     */
-    private void searchArray() {
-        long startTime = System.nanoTime();
-
-        int index = Arrays.binarySearch(this.shortValueArray, shortValueValueToSearch);
-
-        Utils.printOperationDuration(startTime, "пошук в масивi дати i часу");
-
-        if (index >= 0) {
-            System.out.println("Значення '" + shortValueValueToSearch + "' знайдено в масивi за iндексом: " + index);
-        } else {
-            System.out.println("Значення '" + shortValueValueToSearch + "' в масивi не знайдено.");
+    
+        /**
+         * Конструктор, який iнiцiалiзує об'єкт з значенням для пошуку.
+         * 
+         * @param args Аргументи командного рядка, де перший аргумент - значення для пошуку.
+         */
+        BasicDataOperationUsingSet(String[] args) {
+            if (args.length == 0) {
+                throw new RuntimeException("Вiдсутнє значення для пошуку");
+            }
+    
+            String valueToSearch = args[0];
+            this.shortValueValueToSearch = Short.parseShort(valueToSearch);
+    
+            shortValueArray = Utils.readArrayFromFile(PATH_TO_DATA_FILE);
+            shortValueSet = new HashSet<>(Arrays.asList(shortValueArray));
         }
-    }
-
-    /**
-     * Знаходить мiнiмальне та максимальне значення в масивi Short.
-     */
-    private void findMinAndMaxInArray() {
-        if (shortValueArray == null || shortValueArray.length == 0) {
-            System.out.println("Масив порожнiй або не iнiцiалiзований.");
-            return;
+    
+        /**
+         * Виконує основнi операцiї з даними.
+         * 
+         * Метод зчитує масив та множину об'єктiв Short з файлу, сортує їх та виконує пошук значення.
+         */
+        private void doDataOperation() {
+            // операцiї з масивом дати та часу
+            searchArray();
+            findMinAndMaxInArray();
+    
+            sortArray();
+    
+            searchArray();
+            findMinAndMaxInArray();
+    
+            // операцiї з HashSet дати та часу
+            searchSet();
+            findMinAndMaxInSet();
+            compareArrayAndSet();
+    
+            // записати вiдсортований масив в окремий файл
+            Utils.writeArrayToFile(shortValueArray, PATH_TO_DATA_FILE + ".sorted");
         }
-
-        long startTime = System.nanoTime();
-
-        Short min = shortValueArray[0];
-        Short max = shortValueArray[0];
-
-        Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної дати i часу в масивi");
-
-        for (Short shortValue : shortValueArray) {
-            if (shortValue.isBefore(min)) {
+    
+        /**
+         * Сортує масив об'єктiв Short та виводить початковий i вiдсортований масиви.
+         * Вимiрює та виводить час, витрачений на сортування масиву в наносекундах.
+         */
+        private void sortArray() {
+            long startTime = System.nanoTime();
+    
+            Arrays.sort(shortValueArray);
+    
+            Utils.printOperationDuration(startTime, "сортування масиву дати i часу");
+        }
+    
+        /**
+         * Метод для пошуку значення в масивi дати i часу.
+         */
+        private void searchArray() {
+            long startTime = System.nanoTime();
+    
+            int index = Arrays.binarySearch(this.shortValueArray, shortValueValueToSearch);
+    
+            Utils.printOperationDuration(startTime, "пошук в масивi дати i часу");
+    
+            if (index >= 0) {
+                System.out.println("Значення '" + shortValueValueToSearch + "' знайдено в масивi за iндексом: " + index);
+            } else {
+                System.out.println("Значення '" + shortValueValueToSearch + "' в масивi не знайдено.");
+            }
+        }
+    
+        /**
+         * Знаходить мiнiмальне та максимальне значення в масивi Short.
+         */
+        private void findMinAndMaxInArray() {
+            if (shortValueArray == null || shortValueArray.length == 0) {
+                System.out.println("Масив порожнiй або не iнiцiалiзований.");
+                return;
+            }
+    
+            long startTime = System.nanoTime();
+    
+            Short min = shortValueArray[0];
+            Short max = shortValueArray[0];
+    
+            Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної дати i часу в масивi");
+    
+            for (Short shortValue : ShortArray) {
+            if (shortValue < min) {
                 min = shortValue;
             }
-            if (shortValue.isAfter(max)) {
+            if (shortValue > max) {
                 max = shortValue;
             }
         }
@@ -245,14 +245,13 @@ class Utils {
      * @return Масив об'єктiв Short.
      */
     static Short[] readArrayFromFile(String pathToFile) {
-        shortValueFormatter formatter = shortValueFormatter.ISO_DATE_TIME;
         Short[] tempArray = new Short[1000];
         int index = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
             while ((line = br.readLine()) != null) {
-                Short shortValue = Short.parse(line, formatter);
+                Short shortValue = Short.parseShort(line);
                 tempArray[index++] = shortValue;
             }
         } catch (IOException e) {
