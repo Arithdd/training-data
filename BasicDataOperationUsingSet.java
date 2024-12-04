@@ -50,9 +50,9 @@ import java.util.Set;
  * </pre>
  */
 public class BasicDataOperationUsingSet {
-    static final String PATH_TO_DATA_FILE = "list/Short.data";
+    static final String PATH_TO_DATA_FILE = "list/short.data";
     
-        private static final Short[] ShortArray = null;
+
     
         Short shortValueValueToSearch;
         Short[] shortValueArray;
@@ -149,7 +149,7 @@ public class BasicDataOperationUsingSet {
     
             Utils.printOperationDuration(startTime, "пошук мiнiмальної i максимальної дати i часу в масивi");
     
-            for (Short shortValue : ShortArray) {
+            for (Short shortValue : shortValueArray) {
             if (shortValue < min) {
                 min = shortValue;
             }
